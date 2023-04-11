@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Layout, Button, Space, notification } from 'antd';
+import { Form, Input, Layout, Button, Space, Modal, notification } from 'antd';
 import './index.css';
 import axios from 'axios';
 import AWS from 'aws-sdk';
@@ -15,6 +15,9 @@ const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [userPoolId, setUserPoolId] = useState([]);
   const [clientId, setClientId] = useState([]);
+  const [fieldValues, setFieldValues] = useState({
+    message: null,
+});
 
   const notify = () => {
     notification.open({
@@ -26,6 +29,40 @@ const Dashboard = () => {
       },
     });
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sellerEmail, setSellerEmail] = useState(null);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = async () => {
+    try {
+      const email = localStorage.getItem('email')
+      console.log(email, fieldValues);
+      const response = await axios.post("https://" + api + ".execute-api.us-east-1.amazonaws.com/Prod/SendEmailProject", { email, sellerEmail, fieldValues }
+      )
+      console.log(response)
+
+
+    } catch (e) {
+      console.log(e)
+      console.log(e.response.status)
+    }
+    setIsModalOpen(false);
+
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleChange = (e, name) => {
+    setFieldValues(prev => ({
+        ...prev,
+        [name]: e
+    }))
+};
 
   const loadEvents = async () => {
     try {
@@ -57,6 +94,11 @@ const Dashboard = () => {
       console.log(e)
       console.log(e.response.status)
     }
+  };
+  // eslint-disable-next-line
+  const sendMessage = (sellerEmail) => {
+    setSellerEmail(sellerEmail);
+    showModal()
   };
   const handleSignOut = async () => {
     try {
@@ -116,6 +158,7 @@ const Dashboard = () => {
 
   return (
     <>
+      {console.log(fieldValues)}
       <React.Fragment>
         <Content>
           <div className="layout-padding">
@@ -132,7 +175,7 @@ const Dashboard = () => {
                 {posts.length > 0 ? posts
                   .map((element, index) => (
                     <div className="full-width single-box">
-                      <div  key={element.postID}>
+                      <div key={element.postID}>
                         <img className=" center-img" src={element.url} alt="product" />
                         <div className="earning-text">Product: {element.ProductName}</div>
                         <div className="earning-text ">Category: {element.category}</div>
@@ -140,6 +183,8 @@ const Dashboard = () => {
                         <div className="earning-text">Description: {element.Description}</div>
                         <Space wrap>
                           <Button type="primary" onClick={() => handleInterest(element.postID)}>Interested </Button>
+                          {/* <Button type="primary" onClick={() => sendMessage(element.email)}>Chat with seller </Button> */}
+
                         </Space>
                         <Space wrap>
                           {/* {element.issold === "true" ? <h3> Sold </h3> : <Button type="primary" onClick={() => handleSell(element.postID)}>Sold</Button> } */}
@@ -149,62 +194,32 @@ const Dashboard = () => {
                     </div>
                   )) : <h1 style={{ textAlign: 'center' }}> No Posts to show</h1>
                 }
+                <Modal title="Chat with seller" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                  <Form>
+                    <Form.Item
+                      name="message"
+                      label="Message:"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input your message!',
+                          whitespace: true,
+                        },
+                      ]}
+                    >
+                      <Input onChange={(e) => handleChange(e.target.value, "message")} />
+                    </Form.Item>
+                  </Form>
+                </Modal>
 
               </div>
 
             </div>
 
-            {/* <div class="space">
-              <h1>Other Events</h1>
-              <div className=" top-boxes full-width horizontal-scroll container">
-                {events
-                  .filter((number, index) => index % 2 == 0)
-                  .map((element, index) => (
-                    <div className="full-width single-box">
-                      <div className="full-width" key={element.id} onClick={() => handleRedirection(element)}>
-                        <img className=" center-img" src={element.banner_image} alt="product" />
-                        <div className="earning-text full-width">{element.title}</div>
-                        <div className="earning-text full-width new-line" >
-                          $ {element.price > 0.0 ? element.price : 'Free'}
-                        </div>
-                        <div className="earning-text full-width new-line">{element.date}</div>
-                        <div className="earning-text full-width">{element.city}</div>
-                      </div>
-                      <div>
-                                 <Checkbox style={{padding: "inherit"}} icon={<FavoriteBorder />}
-                                           checkedIcon={<Favorite />}
-                                           name="checkedH"
-                                           onClick={notify1}
 
-                                 />
-                                 <Checkbox style={{padding: "inherit", borderSpacing: "2"}} icon={<ShareIcon />}
-                                           checkedIcon={<ShareIcon />}
-                                           name="checkedH"
-                                           onClick={notify2}
-                                 />
-                               </div>
-                    </div>
-                  ))}
-
-              </div>
-            </div> */}
-
-            {/* {userType != "admin" ? <div>
-              {console.log(organizers)}
-              <h1>Organizations</h1>
-              <div className="top-boxes full-width horizontal-scroll">
-                {organizers.map((element, index) => (
-                  <div className="full-width single-box">
-                    <div className="full-width" key={element.key} onClick={() => handleRedirection_organization(element, true)}>
-                      <div className="earning-text full-width">{element.organizationName}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div> : null} */}
           </div>
         </Content>
-      </React.Fragment>
+      </React.Fragment >
     </>
   );
 };

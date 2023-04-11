@@ -54,8 +54,10 @@ const Login = () => {
                     "https://" + api + ".execute-api.us-east-1.amazonaws.com/Prod/LoginProject", values)
                 if (response.data.statusCode === 200) {
                     setErrors(null)
+                    const response1 = JSON.parse(response.config.data)
                     console.log(response.data.jwt_token.AuthenticationResult.AccessToken)
                     localStorage.setItem('jwt_token', response.data.jwt_token.AuthenticationResult.AccessToken)
+                    localStorage.setItem('email',response1.email)
                     navigate('/dashboard')
                 }
                 if (response.data.statusCode === 400) {
