@@ -15,7 +15,7 @@ const MyPosts = () => {
             console.log(api)
             const token = localStorage.getItem("jwt_token");
             const response = await axios.post(
-                "https://"+api+".execute-api.us-east-1.amazonaws.com/Prod/GetMyPostsProject", { token })
+                "https://" + api + ".execute-api.us-east-1.amazonaws.com/Prod/GetMyPostsProject", { token })
             console.log(response)
             if (response.data.statusCode === 400) {
             }
@@ -31,7 +31,7 @@ const MyPosts = () => {
     const handleDelete = async (postID) => {
         try {
             const response = await axios.post(
-                "https://"+api+".execute-api.us-east-1.amazonaws.com/Prod/DeletePostProject", { postID })
+                "https://" + api + ".execute-api.us-east-1.amazonaws.com/Prod/DeletePostProject", { postID })
             console.log(response)
             if (response.data.statusCode === 400) {
             }
@@ -47,7 +47,7 @@ const MyPosts = () => {
     const handleSell = async (postID) => {
         try {
             const response = await axios.post(
-                "https://"+api+".execute-api.us-east-1.amazonaws.com/Prod/SellPostProject", { postID })
+                "https://" + api + ".execute-api.us-east-1.amazonaws.com/Prod/SellPostProject", { postID })
             console.log(response)
             if (response.data.statusCode === 400) {
             }
@@ -81,6 +81,7 @@ const MyPosts = () => {
     };
     useEffect(() => {
         callSM();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -106,7 +107,7 @@ const MyPosts = () => {
                                                     <Button type="primary" onClick={() => handleDelete(element.postID)}>Delete</Button>
                                                 </Space>
                                                 <Space wrap>
-                                                    {element.issold === "true" ? <h3> Sold </h3> : <Button type="primary" onClick={() => handleSell(element.postID)}>Sold</Button> }
+                                                    {element.issold === "true" ? <h3> Sold </h3> : <Button type="primary" onClick={() => handleSell(element.postID)}>Sold</Button>}
                                                 </Space>
                                             </div>
 

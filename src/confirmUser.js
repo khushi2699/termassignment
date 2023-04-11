@@ -47,7 +47,6 @@ const ConfirmUser = () => {
     const [errors, setErrors] = useState([]);
     const [resendMsg, setResendMsg] = useState([]);
     const [form] = Form.useForm();
-    const [userPoolId, setUserPoolId] = useState([]);
     const [clientId, setClientId] = useState([]);
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
@@ -106,7 +105,6 @@ const ConfirmUser = () => {
                 console.log('Secret value: ', data.SecretString);
                 const ans = JSON.parse(data.SecretString);
                 setClientId(ans.ClientPoolID);
-                setUserPoolId(ans.UserPoolID)
             }
         });
     };

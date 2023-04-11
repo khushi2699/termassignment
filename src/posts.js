@@ -31,7 +31,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("jwt_token");
       const response = await axios.post(
-        "https://"+api+".execute-api.us-east-1.amazonaws.com/Prod/GellAllPostsProject", { token })
+        "https://" + api + ".execute-api.us-east-1.amazonaws.com/Prod/GellAllPostsProject", { token })
       console.log(response.data.items)
       if (response.data.statusCode === 400) {
       }
@@ -48,7 +48,7 @@ const Dashboard = () => {
     notify();
     try {
       const token = localStorage.getItem('jwt_token')
-      const response = await axios.post("https://"+api+".execute-api.us-east-1.amazonaws.com/Prod/SendEmailProject", { token, postID }
+      const response = await axios.post("https://" + api + ".execute-api.us-east-1.amazonaws.com/Prod/SendEmailProject", { token, postID }
       )
       console.log(response)
 
@@ -111,7 +111,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     callSM();
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
