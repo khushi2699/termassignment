@@ -94,7 +94,7 @@ const Dashboard = () => {
       secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
       sessionToken: process.env.REACT_APP_SESSION_TOKEN,
       region: process.env.REACT_APP_REGION
-  });
+    });
     secretsManager.getSecretValue({ SecretId: 'CloudSecret' }, function (err, data) {
       if (err) {
         console.log('Error retrieving secret value: ', err);
@@ -115,33 +115,29 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <Layout>
+    <>
       <React.Fragment>
         <Content>
           <div className="layout-padding">
-            <h1> Marketplace</h1>
-            <div>
+            <h1 style={{ textAlign: 'center', fontSize: 45, fontFamily: 'Arial' }}> Dal Marketplace</h1>
+            <div style={{ textAlign: 'center', marginTop: 20 }}>
               <Space wrap>
-                <Button type="primary" onClick={() => navigate('/addPost')}>Add Post</Button>
+                <Button type="primary" size="large" onClick={() => navigate('/addPost')}>Add Post</Button>
+                <Button type="primary" size="large" onClick={() => navigate('/myPosts')}>My Posts</Button>
+                <Button type="primary" size="large" onClick={() => handleSignOut()}>Sign Out</Button>
               </Space>
-              <Space wrap>
-                <Button type="primary" onClick={() => navigate('/myPosts')}>My Posts</Button>
-              </Space>
-              <Space wrap>
-                <Button type="primary" onClick={() => handleSignOut()}>Sign Out</Button>
-              </Space>
-              <h1>All posts</h1>
+              <h1 style={{ marginTop: 20 }}>All posts</h1>
               {console.log(posts)}
-              <div className=" top-boxes full-width horizontal-scroll container">
+              <div className=" top-boxes full-width width100">
                 {posts.length > 0 ? posts
                   .map((element, index) => (
                     <div className="full-width single-box">
-                      <div className="full-width" key={element.postID}>
+                      <div  key={element.postID}>
                         <img className=" center-img" src={element.url} alt="product" />
-                        <div className="earning-text full-width">Product: {element.ProductName}</div>
-                        <div className="earning-text full-width new-line">Category: {element.category}</div>
-                        <div className="earning-text full-width new-line">Price: {element.Price}</div>
-                        <div className="earning-text full-width new-line">Description: {element.Description}</div>
+                        <div className="earning-text">Product: {element.ProductName}</div>
+                        <div className="earning-text ">Category: {element.category}</div>
+                        <div className="earning-text">Price: {element.Price}</div>
+                        <div className="earning-text">Description: {element.Description}</div>
                         <Space wrap>
                           <Button type="primary" onClick={() => handleInterest(element.postID)}>Interested </Button>
                         </Space>
@@ -151,7 +147,8 @@ const Dashboard = () => {
                       </div>
 
                     </div>
-                  )) : <h2> No Posts to show</h2>}
+                  )) : <h1 style={{ textAlign: 'center' }}> No Posts to show</h1>
+                }
 
               </div>
 
@@ -208,7 +205,7 @@ const Dashboard = () => {
           </div>
         </Content>
       </React.Fragment>
-    </Layout>
+    </>
   );
 };
 

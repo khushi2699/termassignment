@@ -14,7 +14,13 @@ code {
 
 .text-link{
   cursor: pointer;
-  color: blue;
+  color: blue !important;
   text-decoration: underline;
+}
+
+.sign-login-style{
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
 }
 

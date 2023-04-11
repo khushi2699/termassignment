@@ -119,7 +119,7 @@ const AddPost = () => {
     const getCategory = async () => {
         try {
             const response = await axios.post(
-                "https://"+api+".execute-api.us-east-1.amazonaws.com/Prod/GetCategoryProject", { imageUrl }
+                "https://" + api + ".execute-api.us-east-1.amazonaws.com/Prod/GetCategoryProject", { imageUrl }
             )
             console.log(response)
             if (response.data.statusCode === 400) {
@@ -142,7 +142,7 @@ const AddPost = () => {
             try {
                 const token = localStorage.getItem("jwt_token");
                 const response = await axios.post(
-                    "https://"+api+".execute-api.us-east-1.amazonaws.com/Prod/AddPostProject", { fieldValues, imageUrl, token })
+                    "https://" + api + ".execute-api.us-east-1.amazonaws.com/Prod/AddPostProject", { fieldValues, imageUrl, token })
                 console.log(response)
                 if (response.data.statusCode === '400') {
                 }
@@ -166,105 +166,108 @@ const AddPost = () => {
         <>
             {console.log(fieldValues)}
 
-            <h2> Add Post</h2>
-            <Form
-                {...formItemLayout}
-                // form={form}
-                name="register"
-                onFinish={onFinish}
-                initialValues={initialValues}
-                style={{
-                    maxWidth: 600,
-                }}
-                scrollToFirstError
-            >
-                <Form.Item
-                    name="productName"
-                    label="Product Name"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your product name!',
-                            whitespace: true,
-                        },
-                    ]}
+            <h1 style={{ textAlign: 'center', fontSize: 45, fontFamily: 'Arial' }}> Dal Marketplace</h1>
+            <h1 style={{ textAlign: 'center', marginTop: 20, marginBottom: 20 }}>All posts</h1>
+                <Form
+                    {...formItemLayout}
+                    // form={form}
+                    name="register"
+                    onFinish={onFinish}
+                    initialValues={initialValues}
+                    style={{
+                        maxWidth: 500,
+                        width: "100%",
+                        textAlign: 'center'
+                    }}
+                    scrollToFirstError
+                    className='postCSS'
                 >
-                    <Input onChange={(e) => handleChange(e.target.value, "productName")} />
-                </Form.Item>
-                <Form.Item
-                    name="price"
-                    label="Price"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input the product price!',
-                            whitespace: true,
-                        },
-                    ]}
-                >
-                    <Input onChange={(e) => handleChange(e.target.value, "price")} />
-                </Form.Item>
-                <Form.Item
-                    name="description"
-                    label="Description"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input the product description!',
-                            whitespace: true,
-                        },
-                    ]}
-                >
-                    <TextArea rows={4} onChange={(e) => handleChange(e.target.value, "description")} />
-                </Form.Item>
-                <Form.Item
-                    name="upload"
-                    label="Upload"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please upload a file',
-                        },
-                    ]}
-                >
-                    <input type="file" onChange={handleFileSelect} />
-                </Form.Item>
-                <Form.Item>
-                    {file && (
-                        <div style={{ marginTop: '10px' }}>
-                            <button onClick={uploadToS3}>Upload</button>
-                        </div>
-                    )}
-                </Form.Item>
-                <Form.Item>
-                    {imageURL && (
-                        <div>
-                            <button onClick={getCategory}>Get Category</button>
-                        </div>
-                    )}
-                </Form.Item>
-                {console.log(getcategory)}
-                <Form.Item
-                    // name = "getcategory"
-                    label="Category"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input the category!',
-                            whitespace: true,
-                        },
-                    ]}
-                >
-                    <Input onChange={(e) => handleChange(e, "category")} value={getcategory} required />
-                </Form.Item>
+                    <Form.Item
+                        name="productName"
+                        label="Product Name"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your product name!',
+                                whitespace: true,
+                            },
+                        ]}
+                    >
+                        <Input onChange={(e) => handleChange(e.target.value, "productName")} />
+                    </Form.Item>
+                    <Form.Item
+                        name="price"
+                        label="Price"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input the product price!',
+                                whitespace: true,
+                            },
+                        ]}
+                    >
+                        <Input onChange={(e) => handleChange(e.target.value, "price")} />
+                    </Form.Item>
+                    <Form.Item
+                        name="description"
+                        label="Description"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input the product description!',
+                                whitespace: true,
+                            },
+                        ]}
+                    >
+                        <TextArea rows={4} onChange={(e) => handleChange(e.target.value, "description")} />
+                    </Form.Item>
+                    <Form.Item
+                        name="upload"
+                        label="Upload"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please upload a file',
+                            },
+                        ]}
+                    >
+                        <input type="file" onChange={handleFileSelect} />
+                    </Form.Item>
+                    <Form.Item>
+                        {file && (
+                            <div style={{ marginTop: '10px' }}>
+                                <button onClick={uploadToS3}>Upload</button>
+                            </div>
+                        )}
+                    </Form.Item>
+                    <Form.Item>
+                        {imageURL && (
+                            <div>
+                                <button onClick={getCategory}>Get Category</button>
+                            </div>
+                        )}
+                    </Form.Item>
+                    {console.log(getcategory)}
+                    <Form.Item
+                        // name = "getcategory"
+                        label="Category"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input the category!',
+                                whitespace: true,
+                            },
+                        ]}
+                    >
+                        <Input onChange={(e) => handleChange(e, "category")} value={getcategory} required />
+                    </Form.Item>
 
-                <Form.Item {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">
-                        Register
-                    </Button>
-                </Form.Item>
-            </Form>
-
+                    <Form.Item {...tailFormItemLayout}>
+                        <Button type="primary" htmlType="submit">
+                            Register
+                        </Button>
+                    </Form.Item>
+                </Form>
         </>
     );
 };

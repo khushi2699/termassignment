@@ -124,7 +124,7 @@ const Login = () => {
         <Row type="flex" justify="center" align="middle" style={{ minHeight: '100vh' }}>
             <Col>
                 <div>
-                    <h2> Log in </h2>
+                    <h2 className = "sign-login-style"> Log in </h2>
                     {console.log(errors)}
                     {errors && <h2>{errors}</h2>}
                     <Form
@@ -171,12 +171,17 @@ const Login = () => {
                         >
                             <Input.Password />
                         </Form.Item>
-
+                        <p role = "presentation" className = "text-link" style={{ textAlign: 'right' }} onClick = {() => navigate('/signup')}>
+                            <Form.Item>
+                                New User? Sign Up here!!!
+                            </Form.Item>
+                        </p>
                         <Form.Item {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">
                                 Login
                             </Button>
                         </Form.Item>
+
                     </Form>
                 </div>
             </Col>

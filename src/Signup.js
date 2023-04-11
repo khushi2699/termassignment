@@ -111,7 +111,7 @@ const Signup = () => {
         <Row type="flex" justify="center" align="middle" style={{ minHeight: '100vh' }}>
             <Col>
                 <div>
-                    <h2> Sign Up </h2>
+                <h2 className = "sign-login-style"> Sign up </h2>
                     {errors && <h2> {errors} </h2>}
                     <Form
                         {...formItemLayout}
@@ -244,6 +244,11 @@ const Signup = () => {
                                 }}
                             />
                         </Form.Item>
+                        <p role = "presentation" className = "text-link " style={{ textAlign: 'right' }} onClick = {() => navigate('/login')}>
+                            <Form.Item>
+                                Already a user? Login here!!!
+                            </Form.Item>
+                        </p>
 
                         <Form.Item {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">

@@ -84,25 +84,25 @@ const MyPosts = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+
     return (
         <Layout>
             <React.Fragment>
                 <Content>
                     {console.log(myPosts)}
                     <div className="layout-padding">
-                        <h1> Marketplace</h1>
-                        <div>
-                            <h1>My posts</h1>
-                            <div className=" top-boxes full-width horizontal-scroll container">
+                        <h1 style={{ textAlign: 'center', fontSize: 45, fontFamily: 'Arial' }}> Dal Marketplace</h1>
+                        <h1 style={{ textAlign: 'center', marginTop: 20, marginBottom: 20 }}>My posts</h1>                        <div>
+                            <div className=" top-boxes full-width width100">
                                 {myPosts.length > 0 ? myPosts
                                     .map((element, index) => (
                                         <div className="full-width single-box">
-                                            <div className="full-width" key={element.postID}>
+                                            <div key={element.postID}>
                                                 <img className=" center-img" src={element.url} alt="product" />
-                                                <div className="earning-text full-width">Product: {element.ProductName}</div>
-                                                <div className="earning-text full-width new-line">Category: {element.category}</div>
-                                                <div className="earning-text full-width new-line">Price: {element.Price}</div>
-                                                <div className="earning-text full-width new-line">Description: {element.Description}</div>
+                                                <div className="earning-text">Product: {element.ProductName}</div>
+                                                <div className="earning-text">Category: {element.category}</div>
+                                                <div className="earning-text">Price: {element.Price}</div>
+                                                <div className="earning-text">Description: {element.Description}</div>
                                                 <Space wrap>
                                                     <Button type="primary" onClick={() => handleDelete(element.postID)}>Delete</Button>
                                                 </Space>
@@ -112,7 +112,7 @@ const MyPosts = () => {
                                             </div>
 
                                         </div>
-                                    )) : <h2>You have no posts</h2>}
+                                    )) : <h2 style={{ textAlign: 'center' }}>You have no posts</h2>}
 
                             </div>
 
