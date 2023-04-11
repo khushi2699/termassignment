@@ -86,7 +86,7 @@ const Signup = () => {
         </Form.Item>
     );
 
-    const callSM = async () => {
+    const callSM = async () => {    
         const secretsManager = new AWS.SecretsManager({
             accessKeyId: 'ASIA5YPJNP3BBBR35QZM',
             secretAccessKey: 'C03SzH5PbZJQY/0hGGlvesXUGTxnHM16zeTXn3/b',
