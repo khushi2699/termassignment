@@ -69,10 +69,10 @@ const Dashboard = () => {
         AccessToken: token
       };
       AWS.config.update({
-        accessKeyId: 'ASIA5YPJNP3BBBR35QZM',
-        secretAccessKey: 'C03SzH5PbZJQY/0hGGlvesXUGTxnHM16zeTXn3/b',
-        sessionToken: 'FwoGZXIvYXdzENP//////////wEaDAKST0uZwrceque/VyLAARkdlaRS8GG07EWCLrDYQdi76VpWUNLk06QGU3evFrPDt4HJtwx+025kqFwjjtL2LbFfzVigkAWeeBOKMogqRpp1RKO6BafxOiJTqsHpOjAUyB0xIM24khjv+Ya0ZhkCtiSPG345ds7zA0QlOiB+QOPG7SWZRWdJuhf6xkaB9aY5vyW6CUR3fu6cY9c7Ua9brsCFeYAs0+XZ76YPuErrd43ltQiskcSIVuk9/d2uu+rR098olVhdsrMoHEv3B/4QCyilrNahBjItI/8XyhVXSBNT5LrttT8hdRauOBbTY+3RIig2i6S/GSnmfDgEKr6QwvA4C+UB',
-        region: 'us-east-1'
+        accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
+        secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
+        sessionToken: process.env.REACT_APP_SESSION_TOKEN,
+        region: process.env.REACT_APP_REGION
       });
       const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({
         region: 'us-east-1',
@@ -90,10 +90,10 @@ const Dashboard = () => {
 
   const callSM = async () => {
     const secretsManager = new AWS.SecretsManager({
-      accessKeyId: 'ASIA5YPJNP3BBBR35QZM',
-      secretAccessKey: 'C03SzH5PbZJQY/0hGGlvesXUGTxnHM16zeTXn3/b',
-      sessionToken: 'FwoGZXIvYXdzENP//////////wEaDAKST0uZwrceque/VyLAARkdlaRS8GG07EWCLrDYQdi76VpWUNLk06QGU3evFrPDt4HJtwx+025kqFwjjtL2LbFfzVigkAWeeBOKMogqRpp1RKO6BafxOiJTqsHpOjAUyB0xIM24khjv+Ya0ZhkCtiSPG345ds7zA0QlOiB+QOPG7SWZRWdJuhf6xkaB9aY5vyW6CUR3fu6cY9c7Ua9brsCFeYAs0+XZ76YPuErrd43ltQiskcSIVuk9/d2uu+rR098olVhdsrMoHEv3B/4QCyilrNahBjItI/8XyhVXSBNT5LrttT8hdRauOBbTY+3RIig2i6S/GSnmfDgEKr6QwvA4C+UB',
-      region: 'us-east-1'
+      accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
+      sessionToken: process.env.REACT_APP_SESSION_TOKEN,
+      region: process.env.REACT_APP_REGION
   });
     secretsManager.getSecretValue({ SecretId: 'CloudSecret' }, function (err, data) {
       if (err) {
